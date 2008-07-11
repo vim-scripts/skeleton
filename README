@@ -1,0 +1,47 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2291
+
+*skeleton* is a Vim plugin to set up a skeleton for a newly created buffer.
+Once you put skeleton files into specific directories, appropriate ones will
+be automatically expanded for newly created buffers.
+
+- Skeleton files must be put in a directory named "xtr/skeleton/" which is
+  under any directory listed in 'runtimepath'.
+
+  For example: ~/.vim/xtr/skeleton/
+
+- The name of a skeleton file should be "{filetype}" or "{filetype}-{suffix}",
+  where {filetype} is the 'filetype' for a newly created buffer and {suffix}
+  is an arbitrary string.
+
+  The former "{filetype}" is used as the default skeleton file for that
+  'filetype'.  The latter "{filetype}-{suffix}" is used to override the
+  default one for some cases which are speicifed by user.
+
+  For example: ~/.vim/xtr/skeleton/vim ~/.vim/xtr/skeleton/vim-plugin
+
+- Whenever user starts to edit a file that doesn't exists:
+
+  1) Skeleton publish a |User:plugin-skeleton-detect| event.  This event can
+     be used to |:SkeletonLoad| a special skeleton file other than the default
+     one.
+
+  2) If |:SkeletonLoad| is not done for the previous step, Skeleton executes
+     the following command:
+
+	execute 'SkeletonLoad' &l:filetype
+
+     This means a skeleton file named "{filetype}" in a directory
+     "xtr/skeleton/" which is under any directory listed in 'runtimepath' is
+     loaded as a skeleton file.
+
+     If there is no such skeleton file, nothing will be happened.
+
+
+Requirements:
+- Vim 7.1 or later
+
+Latest version:
+http://github.com/kana/vim-skeleton
+
+Document in HTML format:
+http://kana.github.com/config/vim/skeleton.html
