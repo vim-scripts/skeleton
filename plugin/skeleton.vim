@@ -1,5 +1,5 @@
 " skeleton - Skeleton for newly created files
-" Version: 0.0.0
+" Version: 0.0.1
 " Copyright (C) 2008 kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -31,6 +31,7 @@ endif
 
 command! -bar -nargs=1 SkeletonLoad
 \ call s:cmd_SkeletonLoad(<q-args>, expand('<abuf>') == '')
+
 function! s:cmd_SkeletonLoad(name, interactive_use_p)
   if &l:buftype != ''
     if a:interactive_use_p
@@ -61,13 +62,19 @@ function! s:cmd_SkeletonLoad(name, interactive_use_p)
 endfunction
 
 
+
+
 augroup plugin-skeleton
   autocmd!
   autocmd BufNewFile *  call s:on_BufNewFile()
 augroup END
+
 function! s:on_BufNewFile()
-  doautocmd User plugin-skeleton-detect
-  execute 'SkeletonLoad' &l:filetype
+  silent doautocmd User plugin-skeleton-detect
+
+  if &l:filetype != ''
+    execute 'SkeletonLoad' &l:filetype
+  endif
 endfunction
 
 
